@@ -1,5 +1,6 @@
 import { addStyle } from "@/lib/add-style";
 import logger from "@/lib/logger";
+import { getStorageData } from "@/lib/storage";
 import { safeQuerySelector } from "@/lib/utils";
 
 function generateBadge(badgeText: string) {
@@ -25,6 +26,16 @@ function generateBadge(badgeText: string) {
 }
 
 export default async function addBadge(articleDocument: Document) {
+  const stroageData = await getStorageData();
+  if (!stroageData) {
+    return;
+  }
+
+  const { autoLike } = stroageData;
+  if (!autoLike) {
+    return;
+  }
+
   const notiBadge = await safeQuerySelector({
     parent: articleDocument,
     selector: "#noti-badge",

@@ -139,6 +139,16 @@ async function generatePageMoveButton(articleDocument: Document, style: CSSPrope
 }
 
 export default async function addButtons(articleDocument: Document) {
+  const stroageData = await getStorageData();
+  if (!stroageData) {
+    return;
+  }
+
+  const { useMissionCheckTools } = stroageData;
+  if (!useMissionCheckTools) {
+    return;
+  }
+
   const $commentBox = (await safeQuerySelector({
     parent: articleDocument,
     selector: ".CommentBox",

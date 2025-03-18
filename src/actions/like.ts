@@ -1,7 +1,18 @@
 import logger from "@/lib/logger";
+import { getStorageData } from "@/lib/storage";
 import { delay, safeQuerySelector } from "@/lib/utils";
 
 export default async function like(articleDocument: Document) {
+  const stroageData = await getStorageData();
+  if (!stroageData) {
+    return;
+  }
+
+  const { autoLike } = stroageData;
+  if (!autoLike) {
+    return;
+  }
+
   const likeButton = await safeQuerySelector({
     parent: articleDocument,
     selector: ".like_no",

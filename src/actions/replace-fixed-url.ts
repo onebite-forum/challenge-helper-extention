@@ -1,3 +1,5 @@
+import { getStorageData } from "@/lib/storage";
+
 const tryPostUrl = (limit = 1) => {
   const iframe = document.querySelector('iframe[name="cafe_main"]') as HTMLIFrameElement;
   const iframeDocument = iframe.contentWindow!.document;
@@ -20,6 +22,16 @@ const tryPostUrl = (limit = 1) => {
 };
 
 export default async function replaceFixedUrl() {
+  const stroageData = await getStorageData();
+  if (!stroageData) {
+    return;
+  }
+
+  const { useFixedUrl } = stroageData;
+  if (!useFixedUrl) {
+    return;
+  }
+
   const iframe = document.querySelector('iframe[name="cafe_main"]') as HTMLIFrameElement;
   const iframeDocumentUrl = iframe.contentDocument?.location.href;
 

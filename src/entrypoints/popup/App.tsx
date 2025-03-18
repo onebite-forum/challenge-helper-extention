@@ -8,8 +8,9 @@ import { AppData } from "@/type";
 
 const initialState: AppData = {
   useFixedUrl: false,
-  missionCheckMessage: "",
   autoLike: false,
+  useMissionCheckTools: false,
+  missionCheckMessage: "",
 };
 
 function App() {
@@ -40,7 +41,7 @@ function App() {
 
   return (
     <div
-      className={cn("flex flex-col gap-2 min-w-[300px] text-gray-900 dark:text-white")}
+      className={cn("flex flex-col gap-2 min-w-[350px] text-gray-900 dark:text-white")}
     >
       <header className={cn("bg-muted p-4")}>
         <div className={cn("text-base font-bold text-primary flex items-center gap-2")}>
@@ -69,11 +70,22 @@ function App() {
         </div>
         <div className={cn("flex flex-col")}>
           <div className={cn("text-xs text-muted-foreground")}>
+            미션검사 도구 사용하기 (변경 시 새로고침이 필요합니다)
+          </div>
+          <Switch
+            className={cn("mt-2")}
+            checked={appData.useMissionCheckTools}
+            onCheckedChange={(checked) =>
+              setAppData({ ...appData, useMissionCheckTools: checked })
+            }
+          />
+        </div>
+        <div className={cn("flex flex-col")}>
+          <div className={cn("text-xs text-muted-foreground")}>
             미션 검사 메시지 (자동 저장 됩니다)
           </div>
           <Textarea
             className={cn("mt-2 p-2 text-sm min-h-[80px]")}
-            placeholder="닉네임"
             value={appData.missionCheckMessage}
             onChange={(e) =>
               setAppData({ ...appData, missionCheckMessage: e.target.value })
