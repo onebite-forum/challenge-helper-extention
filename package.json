@@ -2,7 +2,7 @@
   "name": "한입 챌린지 헬퍼",
   "description": "한입 챌린지 미션 체크를 도와주는 짱좋은 확장 프로그램\n이거 만든 사람 진짜 멋진 사람임",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.2",
   "type": "module",
   "scripts": {
     "dev": "wxt",
