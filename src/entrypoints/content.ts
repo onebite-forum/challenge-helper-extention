@@ -17,7 +17,6 @@ async function onArticleChange() {
   try {
     await replaceFixedUrl();
   } catch (e) {
-    console.error(e);
     logger("Fixed URL 이동 중 에러 발생", 1);
   }
 
