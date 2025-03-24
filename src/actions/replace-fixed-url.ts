@@ -33,27 +33,29 @@ export default async function replaceFixedUrl() {
   }
 
   const iframe = document.querySelector('iframe[name="cafe_main"]') as HTMLIFrameElement;
-  const iframeDocumentUrl = iframe.contentDocument?.location.href;
+  if (iframe) {
+    const iframeDocumentUrl = iframe.contentDocument?.location.href;
 
-  if (iframeDocumentUrl?.includes("MyCafeIntro")) {
-    const cafeLink = document.querySelector(".cafe_link")?.textContent;
-    window.parent.history.replaceState(null, "", cafeLink);
-    return;
+    if (iframeDocumentUrl?.includes("MyCafeIntro")) {
+      const cafeLink = document.querySelector(".cafe_link")?.textContent;
+      window.parent.history.replaceState(null, "", cafeLink);
+      return;
+    }
+
+    if (
+      ![
+        "ArticleRead.nhn",
+        "/articles/",
+        "about:blank",
+        "members",
+        "introduction",
+        "popular",
+      ].some((x) => iframeDocumentUrl!.includes(x))
+    ) {
+      window.parent.history.replaceState(null, "", iframeDocumentUrl);
+      return;
+    }
+
+    tryPostUrl();
   }
-
-  if (
-    ![
-      "ArticleRead.nhn",
-      "/articles/",
-      "about:blank",
-      "members",
-      "introduction",
-      "popular",
-    ].some((x) => iframeDocumentUrl!.includes(x))
-  ) {
-    window.parent.history.replaceState(null, "", iframeDocumentUrl);
-    return;
-  }
-
-  tryPostUrl();
 }
